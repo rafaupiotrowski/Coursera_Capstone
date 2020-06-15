@@ -1,0 +1,92 @@
+As mentioned previously, shapefiles of Cracow and Warsaw will be used -these files can be easily downloaded from web:
+https://gis-support.pl/wp-content/uploads/dzielnice_Warszawy.zip
+https://gis-support.pl/wp-content/uploads/dzielnice_Krakowa.zip
+From shapefiles, with help of QGIS software, I will create geojsons for both cities.
+When transforming .shp to geojson we intend to use with folium, it is important to choose correct coordinate system: WGS 84.
+Generally speaking, geojsons for both cities have different structure, but I will use mostly two informations: district name and shape of district (given by polygon coordinates).
+
+Example of Warsaw geojson:
+{'type': 'FeatureCollection',
+ 'name': 'warsaw_districts',
+ 'crs': {'type': 'name',
+  'properties': {'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'}},
+ 'features': [{'type': 'Feature',
+   'properties': {'nazwa_dzie': 'Żoliborz',
+    'style': {'weight': 1,
+     'opacity': 0.9,
+     'color': 'black',
+     'fillOpacity': 0.7,
+     'fillColor': '#d9f0a3'},
+    'highlight': {}},
+   'geometry': {'type': 'MultiPolygon',
+    'coordinates': [[[[20.957550244360345, 52.266927972075955],
+       [20.957595033280743, 52.26712068328835],
+       [20.957577637116344, 52.26723607840504],
+       [20.957537312295642, 52.26727740707875],
+       [20.957761257322645, 52.267475395339645],
+       ...
+ }
+ 
+ Example of Cracow geojson:
+ {'type': 'FeatureCollection',
+ 'name': 'cracow_districts',
+ 'crs': {'type': 'name',
+  'properties': {'name': 'urn:ogc:def:crs:OGC:1.3:CRS84'}},
+ 'features': [{'type': 'Feature',
+   'properties': {'objectid': 1.0,
+    'mslink': 1.0,
+    'mapid': 3013.0,
+    'id_dzielni': 1.0,
+    'nr_dzielni': 'I',
+    'powierzchn': 5567646.0,
+    'nazwa': 'Stare Miasto',
+    'nazwa_peln': 'Dzielnica I Stare Miasto',
+    'opis': 'UCHWALA NR XCIX/1495/14 RADY MIASTA KRAKOWA',
+    'data_aktua': '2014/04/01',
+    'st_area(sh': 5567646.1253,
+    'st_length(': 11730.268840426876,
+    'style': {},
+    'highlight': {}},
+   'geometry': {'type': 'MultiPolygon',
+    'coordinates': [[[[19.92376505386849, 50.062551412466526],
+       [19.923769137430885, 50.06260611760511],
+       [19.92379225047611, 50.06268428672853],
+       [19.92386892349894, 50.06289692322136],
+       ...
+}
+       
+These geojsons will be needed for creating choroplets.
+Geojsons will be used also for cration of polygons object, to make sure if given venue is inside district borders.
+(Foursquare API lets explore around some point with given radius only).
+For grouping districts into clusters, I will use data about venues in given location received from Foursquare.
+From these data, I will extract information about venue name, type of venue, and its coordinations [latitude and longitude].
+
+Example of data from Foursquare:
+
+{'reasons': {'count': 0,
+  'items': [{'summary': 'This spot is popular',
+    'type': 'general',
+    'reasonName': 'globalInteractionReason'}]},
+ 'venue': {'id': '55508b67498e2dcf9038f190',
+  'name': 'Galeria Wypieków',
+  'location': {'address': 'Plac Wilsona',
+   'lat': 52.26852323140026,
+   'lng': 20.986111282666688,
+   'labeledLatLngs': [{'label': 'display',
+     'lat': 52.26852323140026,
+     'lng': 20.986111282666688}],
+   'distance': 75,
+   'cc': 'PL',
+   'city': 'Warszawa',
+   'state': 'Województwo mazowieckie',
+   'country': 'Polska',
+   'formattedAddress': ['Plac Wilsona', 'Warszawa', 'Polska']},
+  'categories': [{'id': '4bf58dd8d48988d16a941735',
+    'name': 'Bakery',
+    'pluralName': 'Bakeries',
+    'shortName': 'Bakery',
+    'icon': {'prefix': 'https://ss3.4sqi.net/img/categories_v2/food/bakery_',
+     'suffix': '.png'},
+    'primary': True}],
+  'photos': {'count': 0, 'groups': []}},
+ 'referralId': 'e-0-55508b67498e2dcf9038f190-1'}

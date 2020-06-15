@@ -1,0 +1,10 @@
+In this project, I would like to explore two polish cities' districts -Cracow and Warsaw.
+I would like to use cities shapefiles and data from Foursqare.
+In the first place, I would like to create choroplets with most popular types of venues for both cities.
+This type of maps could be useful to quikcly find similiar districts, for example by tourists or investors.
+Then, I would like to group districts into few cluster (no assumptions about the number), taking into considearation what kind of venues could be find there.
+If possible, I would like measure degree of similarity between elements in clusters.
+This kind of data can be useful if, for example, someone is running bussiness in one place, and wants find similar environment in different city.
+Also, this information could be used,for exaple, by travel agency to suggest clients new destination, similiar to places he/she visited previously.
+As an extra task, I will try to find correlation between different types of venues in districts (is number of italian restaurants correlated with number of coffe shops?).
+I hope I will find some interesting and surprising conclusions.
